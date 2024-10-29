@@ -8,6 +8,34 @@ selectBoundingBoxesForClass :: Int -> [(Float, Float, Float, Float)] -> [Int] ->
 
 # A função:
 
+Para fazer a função foram necessárias diversas funções auxiliares que facilitam a leitura e organização do código como a função:
+```haskell
+-- Convert class list from Int to Float
+convertFloat :: [Int] -> [Float]
+convertFloat list = map fromIntegral list
+```
+Ela é necessária pois não podemos aplicar zip em tipos de dados diferentes, como float e int.
+
+Outra função auxiliar foi a de comparação:
+```haskell
+-- Check if the class of bounding box matches the specified class
+verifyEqual :: Int -> (Float, (Float, Float, Float, Float)) -> Bool
+verifyEqual classeR (classe, _) = classe == fromIntegral classeR
+```
+Ela recebe a classe e uma das duplas zipadas classe-valores e compara a classe recebida com o valor da classe da dupla classe-valores, retornando verdadeiro ou falso.
+
+E temos por fim a função em si, que foi a primeira a ser desenvolvida:
+```haskell
+-- Select bounding boxes for a specified class
+selectBoundingBoxesForClass :: Int -> [(Float, Float, Float, Float)] -> [Int] -> [(Float, Float, Float, Float)]
+selectBoundingBoxesForClass classRecebida listaBB listaClass =
+  map snd (filter (verifyEqual classRecebida) listaCBB)
+  where listaCBB = zip (convertFloat listaClass) listaBB
+```
+A função recebe todos os valores e aplica o filter, verificando se é verdadeiro o par classe recebida e classe-valor para cada elemento da lista zipada. Após ele aplica o map para second para extrair a segunda parte da tupla.
+
+#O código completo:
+
 ```haskell
 -- Bounding boxes: (xmin, ymin, xmax, ymax)
 boundingBoxes :: [(Float, Float, Float, Float)]
@@ -79,6 +107,13 @@ selectBoundingBoxesForClass classRecebida listaBB listaClass =
 
 -Uso de zip;
 
+# Primeira versão:
+
+Salvei apenas a primeira versão do código que eu fiz e era o caos, com filter em sequencia, aplicando verificação ao invés de uma função nos dois casos.
+```haskell
+selectBoundingBoxesForClass :: Int -> [(Float, Float, Float, Float)] -> [Int] -> [(Float, Float, Float, Float)]
+selectBoundingBoxesForClass ClassRecebida ListaBB ListaClass = filter (/= ClassRecebida) filter ( == ClassRecebida) zip ListaClass ListaBB
+```
 
 # Fontes:
 -Arquivos da professora disponíveis em: https://github.com/AndreaInfUFSM/elc117-2024b
