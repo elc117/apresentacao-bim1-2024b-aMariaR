@@ -73,8 +73,10 @@ selectBoundingBoxesForClass classRecebida listaBB listaClass =
 
 # Pontos a serem destacados:
 
--Uso de _;
+-Uso de _ ;
+
 -Uso de fromItegral;
+
 -Uso de zip;
 
 
