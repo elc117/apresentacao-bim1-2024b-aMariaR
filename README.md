@@ -1,4 +1,4 @@
-## Lista de apresentações BoudingBoxes
+# Lista de apresentações BoudingBoxes
 # Função 1:
 
 Crie uma função para obter as bounding boxes de uma dada classe. Essa função deve receber um número representando a classe, a lista de bounding boxes e a lista de classes. Resolva esta função sem usar lambda, só usando outras funções existentes ou que você declarar. Pesquise a função zip, que será útil aqui.
